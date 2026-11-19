@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07111f">
+<meta name="description" content="Hunter System — seu sistema pessoal de evolução e treinos.">
+<link rel="manifest" href="manifest.json">
+<title>Hunter System</title>
+<style>
+:root{--bg:#050b14;--panel:#0d1a2b;--panel2:#10243a;--line:#1b3c5d;--blue:#36b9ff;--cyan:#7ce7ff;--muted:#91a9c1;--white:#edf7ff;--gold:#ffc857;--green:#55e6a5;--red:#ff6b81}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -10%,#12365a 0,#071321 42%,var(--bg) 78%);color:var(--white);font-family:system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh;padding-bottom:86px}
+header{padding:24px 18px 12px;max-width:760px;margin:auto}.eyebrow{font-size:11px;letter-spacing:3px;color:var(--cyan);font-weight:800}.brand{font-size:27px;font-weight:900;letter-spacing:1px;margin:5px 0}.brand span{color:var(--blue)}.sub{color:var(--muted);font-size:13px}
+main{max-width:760px;margin:auto;padding:8px 14px 30px}.screen{display:none}.screen.active{display:block}.card{background:linear-gradient(145deg,rgba(16,36,58,.97),rgba(9,22,37,.98));border:1px solid var(--line);border-radius:18px;padding:17px;margin:12px 0;box-shadow:0 12px 35px #0003}.row{display:flex;align-items:center;justify-content:space-between;gap:12px}.rank{font-size:12px;color:var(--gold);font-weight:900;letter-spacing:2px}.level{font-size:34px;font-weight:900}.muted{color:var(--muted)}.small{font-size:12px}.bar{height:9px;border-radius:20px;background:#1b3046;overflow:hidden;margin:10px 0 5px}.fill{height:100%;width:0;background:linear-gradient(90deg,#168cff,#69e4ff);border-radius:20px;transition:width .3s}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.stat{background:#0a1727;border:1px solid #1b3855;border-radius:14px;padding:13px}.stat b{display:block;font-size:23px}.stat span{font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}.section-title{font-size:17px;font-weight:800;margin:22px 3px 8px}.mission{display:flex;align-items:center;gap:12px}.mission .emoji{font-size:24px}.mission p{margin:3px 0;color:var(--muted);font-size:12px}.mission button{margin-left:auto}.btn{border:0;border-radius:12px;padding:11px 14px;background:linear-gradient(100deg,#168cff,#20c5ee);color:#04101c;font-weight:850;font-size:13px}.btn.secondary{background:#142a40;color:var(--white);border:1px solid #2b5276}.btn:disabled{opacity:.4}.tabs{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:center;background:#071321f2;border-top:1px solid #1a3855;padding:9px 4px calc(9px + env(safe-area-inset-bottom));backdrop-filter:blur(12px);z-index:5}.tabs button{flex:1;max-width:150px;background:none;border:0;color:var(--muted);font-size:11px;padding:5px}.tabs button strong{display:block;font-size:20px;margin-bottom:2px}.tabs button.active{color:var(--cyan)}label{display:block;font-size:12px;color:var(--muted);margin:12px 0 5px}input,select{width:100%;background:#071321;border:1px solid #285071;color:var(--white);padding:12px;border-radius:10px;font-size:15px}form .btn{width:100%;margin-top:15px}.empty{text-align:center;color:var(--muted);padding:25px 8px}.pill{border:1px solid #275078;border-radius:30px;padding:5px 9px;color:var(--cyan);font-size:11px}.history-item{padding:12px 0;border-bottom:1px solid #1a344d}.history-item:last-child{border:0}.notice{font-size:12px;color:var(--muted);line-height:1.5}.toast{position:fixed;top:15px;left:50%;transform:translateX(-50%);background:#12395a;border:1px solid #3c9bd4;padding:11px 16px;border-radius:12px;z-index:10;display:none}
+.camera-frame{position:relative;background:#02070d;border:1px solid #285071;border-radius:14px;overflow:hidden;aspect-ratio:4/3;margin-top:10px}.camera-frame video{width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}#cameraOverlay{position:absolute;inset:auto 8px 8px;background:#071321d9;padding:7px;border-radius:8px;text-align:center;font-size:12px;color:var(--cyan)}\n</style>
+</head>
+<body>
+<header><div class="eyebrow">SISTEMA DE DESENVOLVIMENTO PESSOAL</div><div class="brand">HUNTER <span>SYSTEM</span></div><div class="sub">Sua jornada começa com a próxima missão.</div></header>
+<main>
+<section id="home" class="screen active">
+ <div class="card">
+  <div class="row"><div><div class="rank" id="rank">RANK E</div><div class="level">NÍVEL <span id="level">1</span></div><div class="muted small"><span id="xp">0</span> / <span id="nextxp">100</span> XP</div></div><div style="font-size:48px">⚔️</div></div>
+  <div class="bar"><div class="fill" id="xpbar"></div></div><div class="row small muted"><span id="rankdesc">Caçador iniciante</span><span id="totalxp">0 XP total</span></div>
+ </div>
+ <div class="grid">
+  <div class="stat"><span>Treinos concluídos</span><b id="workouts">0</b></div>
+  <div class="stat"><span>Sequência atual</span><b id="streak">0 dias</b></div>
+  <div class="stat"><span>Exercícios registrados</span><b id="reps">0</b></div>
+  <div class="stat"><span>Missões concluídas</span><b id="missionsDone">0</b></div>
+ </div>
+ <div class="section-title">📜 Missões de hoje</div><div id="missions"></div>
+ <div class="card notice">⚠️ O sistema acompanha seu registro, não mede sua saúde nem substitui orientação profissional. Faça pausas e adapte os exercícios ao seu nível.</div>
+</section>
+<section id="training" class="screen">
+ <div class="section-title">💪 Registrar treino</div>
+ <div class="card">
+  <form id="workoutForm">
+   <label for="exercise">Exercício</label><select id="exercise"><option>Flexões</option><option>Agachamentos</option><option>Abdominais</option><option>Prancha</option><option>Caminhada</option><option>Corrida</option><option>Outro</option></select>
+   <label for="amount">Quantidade (repetições ou minutos)</label><input id="amount" type="number" min="1" max="999" placeholder="Ex.: 10" required>
+   <label for="unit">Unidade</label><select id="unit"><option>repetições</option><option>minutos</option><option>segundos</option></select>
+   <label for="note">Observação (opcional)</label><input id="note" maxlength="80" placeholder="Como foi o treino?">
+   <button class="btn" type="submit">REGISTRAR TREINO · + XP</button>
+  </form>
+ </div>
+ <div class="card" id="cameraCard"><div class="row"><b>📷 Contagem pela câmera</b><span class="pill">BETA</span></div>
+<p class="notice">Contagem experimental por reconhecimento de pose. Use boa iluminação, apoie o celular e mantenha o corpo visível. O processamento é feito no aparelho; o vídeo não é enviado pelo app.</p>
+<label for="cameraExercise">Exercício</label><select id="cameraExercise"><option>Agachamento</option><option>Flexão</option><option>Polichinelo</option><option>Abdominal</option></select>
+<div class="camera-frame"><video id="cameraVideo" playsinline muted></video><div id="cameraOverlay">Câmera desligada</div></div>
+<div class="row" style="margin:12px 0"><div><div class="small muted">REPETIÇÕES</div><div class="level" id="cameraCount">0</div></div><span class="pill" id="cameraStatus">Aguardando</span></div>
+<div class="row"><button class="btn" id="cameraStart">LIGAR CÂMERA</button><button class="btn secondary" id="cameraStop" disabled>PARAR</button></div>
+<button class="btn secondary" id="cameraSave" style="width:100%;margin-top:10px" disabled>SALVAR SÉRIE</button>
+<p class="notice" id="cameraHelp">A contagem é aproximada. Confira o resultado antes de salvar.</p></div>
+ <div class="section-title">🗂️ Histórico</div><div class="card" id="history"><div class="empty">Nenhum treino registrado ainda.</div></div>
+</section>
+<section id="attributes" class="screen">
+ <div class="section-title">📊 Atributos do caçador</div>
+ <div class="card notice">Os atributos são indicadores de progresso dentro do jogo, não avaliações físicas.</div>
+ <div id="statsList"></div>
+</section>
+<section id="profile" class="screen">
+ <div class="section-title">👤 Perfil do caçador</div>
+ <div class="card"><label for="hunterName">Nome do caçador</label><input id="hunterName" maxlength="24" placeholder="Caçador"><button class="btn" style="width:100%;margin-top:12px" id="saveName">SALVAR NOME</button></div>
+ <div class="card"><b>💾 Seus dados</b><p class="notice">O progresso fica salvo neste navegador, neste aparelho. Se limpar os dados do navegador ou trocar de celular, poderá perder o progresso.</p><button class="btn secondary" id="export">EXPORTAR MEU PROGRESSO</button> <button class="btn secondary" id="reset">REINICIAR SISTEMA</button></div>
+ <div class="card notice">Hunter System · versão 0.1 · Aplicativo pessoal de hábitos e gamificação.</div>
+</section>
+</main>
+<nav class="tabs">
+ <button class="active" data-tab="home"><strong>⌂</strong>Início</button>
+ <button data-tab="training"><strong>＋</strong>Treinos</button>
+ <button data-tab="attributes"><strong>◈</strong>Atributos</button>
+ <button data-tab="profile"><strong>☻</strong>Perfil</button>
+</nav><div class="toast" id="toast"></div>
+<script type="module">\nimport { FilesetResolver, PoseLandmarker } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14";
+const KEY='hunter-system-v1';
+const today=()=>new Date().toISOString().slice(0,10);
+const fresh=()=>({name:'Caçador',xp:0,totalXp:0,level:1,workouts:[],missions:{},attributes:{forca:0,resistencia:0,agilidade:0,vitalidade:0}});
+let data;try{data=JSON.parse(localStorage.getItem(KEY))||fresh()}catch(e){data=fresh()}
+function save(){localStorage.setItem(KEY,JSON.stringify(data));render()}
+function levelFor(xp){return Math.floor(xp/100)+1}
+function rankFor(l){return l>=30?'S':l>=20?'A':l>=14?'B':l>=9?'C':l>=4?'D':'E'}
+function toast(s){let t=document.getElementById('toast');t.textContent=s;t.style.display='block';setTimeout(()=>t.style.display='none',2200)}
+const missionDefs=[['log','Faça 1 registro de treino','📝',1],['reps','Registre 20 repetições','🎯',20],['minutes','Registre 10 minutos de atividade','⏱️',10]];
+function doneMission(id){return !!data.missions[today()]?.[id]}
+function complete(id){data.missions[today()]??={};if(doneMission(id))return;data.missions[today()][id]=true;gain(20);toast('Missão concluída! +20 XP')}
+function gain(n){data.xp+=n;data.totalXp+=n;data.level=levelFor(data.totalXp)}
+function render(){
+ const l=levelFor(data.totalXp), rank=rankFor(l), into=data.totalXp%100;
+ document.getElementById('level').textContent=l;document.getElementById('rank').textContent='RANK '+rank;
+ document.getElementById('xp').textContent=into;document.getElementById('nextxp').textContent=100;document.getElementById('xpbar').style.width=into+'%';document.getElementById('totalxp').textContent=data.totalXp+' XP total';
+ document.getElementById('rankdesc').textContent=({E:'Caçador iniciante',D:'Caçador em treinamento',C:'Caçador experiente',B:'Caçador avançado',A:'Caçador de elite',S:'Caçador supremo'})[rank];
+ document.getElementById('workouts').textContent=data.workouts.length;document.getElementById('reps').textContent=data.workouts.reduce((a,w)=>a+w.amount,0);
+ document.getElementById('missionsDone').textContent=Object.values(data.missions).reduce((a,m)=>a+Object.values(m).filter(Boolean).length,0);
+ const dates=[...new Set(data.workouts.map(w=>w.date))].sort().reverse();let streak=0,d=new Date();for(let i=0;i<365;i++){let s=d.toISOString().slice(0,10);if(dates.includes(s)){streak++;d.setDate(d.getDate()-1)}else if(i===0){d.setDate(d.getDate()-1);continue}else break}document.getElementById('streak').textContent=streak+' dias';
+ let totalReps=data.workouts.filter(w=>w.unit==='repetições').reduce((a,w)=>a+w.amount,0),totalMin=data.workouts.filter(w=>w.unit==='minutos').reduce((a,w)=>a+w.amount,0);
+ const m=document.getElementById('missions');m.innerHTML=missionDefs.map(([id,desc,emoji,target])=>{let ok=doneMission(id),progress=id==='log'?(data.workouts.some(w=>w.date===today())?1:0):id==='reps'?data.workouts.filter(w=>w.date===today()&&w.unit==='repetições').reduce((a,w)=>a+w.amount,0):data.workouts.filter(w=>w.date===today()&&w.unit==='minutos').reduce((a,w)=>a+w.amount,0);if(progress>=target&&!ok){data.missions[today()]??={};data.missions[today()][id]=true;ok=true}return `<div class="card mission"><div class="emoji">${emoji}</div><div><b>${desc}</b><p>${Math.min(progress,target)} / ${target} · ${ok?'Concluída':'Em andamento'}</p></div><span class="pill">${ok?'✓':' +20 XP'}</span></div>`}).join('');
+ document.getElementById('history').innerHTML=data.workouts.length?data.workouts.slice().reverse().slice(0,30).map(w=>`<div class="history-item row"><div><b>${escapeHtml(w.exercise)}</b><div class="small muted">${w.date}${w.note?' · '+escapeHtml(w.note):''}</div></div><div style="text-align:right"><b>${w.amount} ${w.unit}</b><div class="small" style="color:var(--cyan)">+${w.xp} XP</div></div></div>`).join(''):'<div class="empty">Nenhum treino registrado ainda.</div>';
+ document.getElementById('hunterName').value=data.name;
+ const attrs=[['forca','Força','💥'],['resistencia','Resistência','🛡️'],['agilidade','Agilidade','⚡'],['vitalidade','Vitalidade','❤️']];document.getElementById('statsList').innerHTML=attrs.map(([id,n,e])=>`<div class="card row"><div><b>${e} ${n}</b><div class="small muted">Pontos de evolução</div></div><b style="font-size:24px">${data.attributes[id]||0}</b></div>`).join('');
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(b.dataset.tab).classList.add('active')}));
+document.getElementById('workoutForm').addEventListener('submit',e=>{e.preventDefault();let amount=Number(document.getElementById('amount').value);if(!Number.isFinite(amount)||amount<1)return;let exercise=document.getElementById('exercise').value,unit=document.getElementById('unit').value;let xp=Math.min(50,10+Math.floor(amount/5));let w={exercise,amount,unit,note:document.getElementById('note').value.trim(),date:today(),xp};data.workouts.push(w);gain(xp);if(exercise==='Flexões'||exercise==='Agachamentos'||exercise==='Abdominais')data.attributes.forca+=Math.max(1,Math.floor(amount/10));if(unit==='minutos')data.attributes.resistencia+=Math.max(1,Math.floor(amount/10));if(exercise==='Caminhada'||exercise==='Corrida')data.attributes.agilidade+=1;data.attributes.vitalidade+=1;complete('log');let reps=data.workouts.filter(x=>x.date===today()&&x.unit==='repetições').reduce((a,x)=>a+x.amount,0);let mins=data.workouts.filter(x=>x.date===today()&&x.unit==='minutos').reduce((a,x)=>a+x.amount,0);if(reps>=20)complete('reps');if(mins>=10)complete('minutes');e.target.reset();save();toast('Treino registrado! +'+xp+' XP')});
+document.getElementById('saveName').onclick=()=>{data.name=document.getElementById('hunterName').value.trim()||'Caçador';save();toast('Nome atualizado!')};
+document.getElementById('export').onclick=()=>{let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='hunter-system-progresso.json';a.click();URL.revokeObjectURL(a.href)};
+document.getElementById('reset').onclick=()=>{if(confirm('Tem certeza? Todo o progresso salvo neste navegador será apagado.')){data=fresh();save();toast('Sistema reiniciado')}};
+let poseTask=null, stream=null, running=false, repCount=0, phase='up', lastTime=-1;
+const video=document.getElementById('cameraVideo'), countEl=document.getElementById('cameraCount');
+const statusEl=document.getElementById('cameraStatus'), startBtn=document.getElementById('cameraStart');
+const stopBtn=document.getElementById('cameraStop'), saveBtn=document.getElementById('cameraSave');
+const overlay=document.getElementById('cameraOverlay'), exerciseEl=document.getElementById('cameraExercise');
+const hint=document.getElementById('cameraHelp');
+const angle=(a,b,c)=>{const u=[a.x-b.x,a.y-b.y],v=[c.x-b.x,c.y-b.y],d=Math.hypot(...u)*Math.hypot(...v);return d?Math.acos(Math.max(-1,Math.min(1,(u[0]*v[0]+u[1]*v[1])/d)))*180/Math.PI:180};
+const visible=(p,ids)=>ids.every(i=>p[i]&&p[i].visibility>.45);
+function poseState(p,ex){
+ if(ex==='Agachamento')return angle(p[23],p[25],p[27])<105?'down':angle(p[23],p[25],p[27])>155?'up':null;
+ if(ex==='Flexão')return angle(p[11],p[13],p[15])<95?'down':angle(p[11],p[13],p[15])>150?'up':null;
+ if(ex==='Abdominal')return angle(p[11],p[23],p[25])<75?'down':angle(p[11],p[23],p[25])>110?'up':null;
+ const arms=p[15].y<p[11].y-.08&&p[16].y<p[12].y-.08;
+ const legs=Math.abs(p[27].x-p[28].x)>Math.abs(p[23].x-p[24].x)*1.35;
+ return arms&&legs?'down':(!arms&&!legs?'up':null);
+}
+function onPose(result){
+ if(!running||!result.landmarks?.length)return;
+ const p=result.landmarks[0],ex=exerciseEl.value;
+ const ids=ex==='Agachamento'?[23,25,27]:ex==='Flexão'?[11,13,15]:ex==='Abdominal'?[11,23,25]:[11,12,15,16,23,24,27,28];
+ if(!visible(p,ids)){statusEl.textContent='Corpo fora do enquadramento';return}
+ const s=poseState(p,ex);
+ if(s==='down'&&phase==='up')phase='down';
+ else if(s==='up'&&phase==='down'){repCount++;phase='up';countEl.textContent=repCount;saveBtn.disabled=false}
+ statusEl.textContent=s==='down'?'Movimento detectado':s==='up'?'Posição inicial':'Ajustando';
+}
+function loop(){if(!running)return;if(video.currentTime!==lastTime&&poseTask){lastTime=video.currentTime;try{onPose(poseTask.detectForVideo(video,performance.now()))}catch(e){}}requestAnimationFrame(loop)}
+function stopCam(){running=false;if(stream)stream.getTracks().forEach(t=>t.stop());stream=null;video.srcObject=null;overlay.textContent='Câmera desligada';statusEl.textContent='Parada';startBtn.disabled=false;stopBtn.disabled=true}
+startBtn.onclick=async()=>{
+ try{startBtn.disabled=true;statusEl.textContent='Carregando reconhecimento...';
+ if(!poseTask){const vision=await FilesetResolver.forVisionTasks('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm');poseTask=await PoseLandmarker.createFromOptions(vision,{baseOptions:{modelAssetPath:'https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task',delegate:'CPU'},runningMode:'VIDEO',numPoses:1})}
+ stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:640,height:480},audio:false});video.srcObject=stream;await video.play();running=true;repCount=0;phase='up';countEl.textContent='0';saveBtn.disabled=true;stopBtn.disabled=false;overlay.textContent='Câmera ativa';statusEl.textContent='Posicione-se';loop();
+ }catch(e){statusEl.textContent='Falha ao iniciar';overlay.textContent='Permita a câmera e tente novamente';startBtn.disabled=false}
+};
+stopBtn.onclick=stopCam;
+exerciseEl.onchange=()=>{repCount=0;phase='up';countEl.textContent='0';saveBtn.disabled=true;hint.textContent='Enquadre as articulações necessárias e confira a contagem.'};
+saveBtn.onclick=()=>{if(!repCount)return;const exercise=exerciseEl.value,amount=repCount,xp=Math.min(50,10+Math.floor(amount/5));data.workouts.push({exercise,amount,unit:'repetições',note:'Contagem assistida pela câmera',date:today(),xp});gain(xp);if(exercise==='Polichinelo')data.attributes.resistencia+=Math.max(1,Math.floor(amount/10));else data.attributes.forca+=Math.max(1,Math.floor(amount/10));data.attributes.vitalidade+=1;complete('log');save();toast('Série salva! +'+xp+' XP');repCount=0;phase='up';countEl.textContent='0';saveBtn.disabled=true};
+window.addEventListener('pagehide',stopCam);
+\nrender();
+if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+</script>
+</body></html>

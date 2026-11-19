@@ -1,18 +1,7 @@
-# Hunter System — PWA 0.1
+# Hunter System — atualização com câmera
 
-## Como usar
-1. Publique esta pasta em um serviço de hospedagem estática com HTTPS (por exemplo, GitHub Pages).
-2. Abra o endereço no Chrome do Android.
-3. No menu do Chrome, escolha **Adicionar à tela inicial** ou **Instalar app**.
+PWA para Android. Inclui contagem experimental de agachamento, flexão, polichinelo e abdominal com MediaPipe Pose no navegador.
 
-`index.html` também pode ser aberto diretamente para testar, mas a instalação como PWA e o modo offline exigem hospedagem HTTPS.
+Requisitos: HTTPS, conexão com a internet para carregar o modelo e permissão de câmera. O vídeo é processado localmente pelo navegador e não é enviado pelo app. A contagem é aproximada; confira antes de salvar. Posicione o celular com segurança e não faça movimentos além do que consegue realizar confortavelmente.
 
-## Recursos
-- Perfil, XP, níveis e ranks E–S
-- Missões diárias
-- Registro manual de exercícios
-- Histórico, atributos e exportação de progresso
-- Cache offline após primeira visita
-
-A contagem automática por câmera não está implementada nesta versão.
-Os dados ficam no armazenamento local do navegador.
+Para atualizar o GitHub Pages, substitua os arquivos da raiz do repositório pelos arquivos desta pasta.
