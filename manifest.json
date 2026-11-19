@@ -1,9 +1,0 @@
-{
-  "name": "Hunter System",
-  "short_name": "Hunter",
-  "start_url": "./index.html",
-  "display": "standalone",
-  "background_color": "#050b14",
-  "theme_color": "#07111f",
-  "description": "Sistema pessoal de evolução e treinos"
-}
